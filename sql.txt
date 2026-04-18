@@ -1,0 +1,42 @@
+-- =========================
+-- Tabla: roles
+-- =========================
+CREATE TABLE roles (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL
+);
+
+-- =========================
+-- Tabla: usuario
+-- =========================
+CREATE TABLE usuario (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    apellido VARCHAR(100) NOT NULL,
+    edad INT,
+    rol_id INT,
+    fecha_creacion DATE,
+    usuario VARCHAR(100) UNIQUE NOT NULL,
+    contrasena VARCHAR(255) NOT NULL,
+    
+    CONSTRAINT fk_usuario_rol
+        FOREIGN KEY (rol_id)
+        REFERENCES roles(id)
+);
+
+-- =========================
+-- Tabla: productos_activos
+-- =========================
+CREATE TABLE productos_activos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT,
+    nombre_producto_activo VARCHAR(150) NOT NULL,
+    precio DECIMAL(10,2) NOT NULL,
+    estado BOOLEAN,
+    fecha_activacion DATE,
+    fecha_expiracion DATE,
+
+    CONSTRAINT fk_producto_usuario
+        FOREIGN KEY (usuario_id)
+        REFERENCES usuario(id)
+);
